@@ -256,6 +256,39 @@ export default DS.JSONAPISerializer.extend({
 
 
 
+app/templates/dashboard.hbs
+  {{#link-to class="item"}}
+  <i class="logout icon" {{action "logout"}}></i>
+  Logout
+  {{/link-to}}
+  
+  
+app/routes/dashboard.js
+import Ember from 'ember';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+
+export default Ember.Route.extend(AuthenticatedRouteMixin,{
+
+session: Ember.inject.service('session'),
+
+  actions: {
+    logout() {
+
+      this.get('session').invalidate();
+      this.transitionTo('login');
+    }
+  }
+});
+
+app/routes/application.js
+import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
+
+export default Ember.Route.extend(ApplicationRouteMixin, {
+});
+
+
+
 
 
 
