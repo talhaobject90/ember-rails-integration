@@ -65,6 +65,7 @@ end
 
 
 
+
 models/users.rb
 class User < ActiveRecord::Base
   before_save :ensure_authentication_token
@@ -101,6 +102,13 @@ class User < ActiveRecord::Base
   end
 end
 
+
+db/seeds.rb
+User.create(email: 'admin@test.com', password: 'password')
+
+
+config/initializers/json_api.rb
+ActiveModel::Serializer.config.adapter = ActiveModel::Serializer::Adapter::JsonApi
 
 
 
@@ -208,6 +216,43 @@ export default DeviseAuthorizer.extend({
 });
 
 ember install ember-cli-notifications
+
+app/config/adapters/application.js
+import DS from 'ember-data';
+import ENV from '../config/environment';
+import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
+
+export default DS.JSONAPIAdapter.extend(DataAdapterMixin,{
+  host: ENV.APP.host,
+  authorizer: 'authorizer:devise'
+});
+
+
+app/config/serializers/application.js
+
+import DS from 'ember-data';
+export default DS.JSONAPISerializer.extend({
+  serialize() {
+    const result = this._super(...arguments),
+    attr = result.data.attributes,
+    rel = result.data.relationships;
+    if(rel){
+      return Object.keys(rel).reduce(function(acc, elem) {
+        const data = rel[elem].data;
+        if (data) {
+          acc[elem + "_id"] = data.id;
+        }
+        if (data && data.type) {
+          acc[elem + "_type"] = data.type[0].toUpperCase() + data.type.slice(1, -1);
+        }
+        return acc;
+      }, attr);
+    }
+    else{
+      return (rel,attr);
+    }
+  }
+});
 
 
 
