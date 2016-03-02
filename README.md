@@ -296,6 +296,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
 
 
+// BEST PRACTICE FOR ROUTE HOOKS
+model: function() {
+    return this.store.findAll('product');
+  },
 
+  setupController: function(controller ,model) {
+        controller.set('products',model);
+       controller.set('suppliers', this.store.findAll('supplier'));
+       }
 
 
