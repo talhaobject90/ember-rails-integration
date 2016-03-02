@@ -25,6 +25,13 @@ class ApplicationController < ActionController::Base
 #  before_filter :set_paper_trail_whodunnit
 
 
+
+// incase of heroku install error include this post-script
+"scripts": {
+
+    "postinstall": "cd node_modules/ember-lodash && npm install",
+  },
+
   private
 
     def authenticate_user_from_token!
