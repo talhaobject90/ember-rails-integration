@@ -16,10 +16,10 @@ source ~/.bash_rc
 
 
 rbenv install -v 2.2.2
-rbenv install -v 2.2.2
+rbenv global 2.2.2
 echo "gem: --no-document" > ~/.gemrc
 gem install bundler
-gem install rails
+ gem install rails --pre --no-ri --no-rdoc
 
 rbenv rehash
 
