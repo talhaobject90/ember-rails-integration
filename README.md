@@ -1,9 +1,41 @@
 # ember-rails-integration
 
+
+INSTALL RAILS 
+```
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+
+cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_rc
+echo 'eval "$(rbenv init -)"' >> ~/.bash_rc
+
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build 
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_rc
+source ~/.bash_rc
+
+
+rbenv install -v 2.2.2
+rbenv install -v 2.2.2
+echo "gem: --no-document" > ~/.gemrc
+gem install bundler
+gem install rails
+
+rbenv rehash
+```
+
+
+
+```
+
+
 RAILS INTEGRATION
 --------------------
 1. Devise and authentication
 ```
+
+
+
 
 rails _5.0.0.beta3_ new bookstore-api --api
 rails generate devise:install
