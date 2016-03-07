@@ -25,7 +25,10 @@ rbenv rehash
 
 
 sudo apt-get install libmysqlclient-dev
-gem install mysql2
+gem install mysql2 
+sudo apt-get install libpq-dev
+
+
 ```
 
 
@@ -355,4 +358,9 @@ model: function() {
        controller.set('suppliers', this.store.findAll('supplier'));
        }
 
+```
+# AOM IDE
+apm install jshint
 
+'atom-text-editor':
+  'cmd-alt-l': 'editor:auto-indent'
