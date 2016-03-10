@@ -1,6 +1,21 @@
 # ember-rails-integration
 
 
+
+INSTALL HEROKU TOOLBELT
+
+wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+ssh-keygen -t rsa -C "your_email@example.com"
+
+heroku login
+
+heroku keys:add
+
+heroku keys:add
+
+
+
 INSTALL RAILS 
 ```
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
