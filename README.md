@@ -3,6 +3,7 @@
 
 
 INSTALL HEROKU TOOLBELT
+```
 
 wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
@@ -14,7 +15,7 @@ heroku keys:add
 
 heroku keys:add
 
-
+```
 
 INSTALL RAILS 
 ```
