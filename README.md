@@ -195,6 +195,21 @@ EMBER
 ------------------
 ```
 
+
+FOR "ember-data": "2.3.3",
+add this to the environment.js
+var deployTarget = process.env.DEPLOY_TARGET || environment;
+
+
+  if (deployTarget === 'staging') {
+  ENV.build.environment = 'production';
+}
+
+if (deployTarget === 'production') {
+  ENV.build.environment = 'production';
+}
+
+
 ember install ember-cli-selectize
 
 
