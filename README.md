@@ -2,7 +2,7 @@
 
 
 
-INSTALL HEROKU TOOLBELT
+##INSTALL HEROKU TOOLBELT
 ```
 
 wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
@@ -13,11 +13,16 @@ heroku login
 
 heroku keys:add
 
-heroku keys:add
-
+```
+### incase of heroku install error include this post-script
+```
+// include this in package.json
+"scripts": {
+    "postinstall": "cd node_modules/ember-lodash && npm install",
+  },
 ```
 
-INSTALL RAILS 
+##INSTALL RAILS 
 ```
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
 
@@ -32,73 +37,56 @@ source ~/.bashrc
 
 
 rbenv install -v 2.2.2
+rbenv rehash
 rbenv global 2.2.2
 echo "gem: --no-document" > ~/.gemrc
 gem install bundler
- gem install rails --pre --no-ri --no-rdoc
-
+rbenv rehash
+gem install rails --pre --no-ri --no-rdoc
 rbenv rehash
 
 
 sudo apt-get install libmysqlclient-dev
 gem install mysql2 
 sudo apt-get install libpq-dev
-
-
 ```
 
 
-INSTALL EMBER
+##INSTALL EMBER
 
 
 ```
 curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
-
 npm install -g ember-cli
 ```
+ 
 
 
+##RAILS INTEGRATION
 
 
+###New Rails 
 ```
-
-
-RAILS INTEGRATION
---------------------
-1. Devise and authentication
-```
-
-
-
-
 rails _5.0.0.beta3_ new bookstore-api --api
+```
+### Devise
+```
 rails generate devise:install
 rails generate devise user
+```
+####Add to migration file
 t.string :authentication_token, null: false, default: ""
 
-
-
+```
 //config/routes.rb
 devise_for :users, controllers: { sessions: 'sessions' }
-
+```
+```
 //controllers/application_controller.rb
-
 class ApplicationController < ActionController::Base
-
   before_filter :authenticate_user_from_token!
-
   before_filter :authenticate_user!
-#  before_filter :set_paper_trail_whodunnit
-
-
-
-// incase of heroku install error include this post-script
-"scripts": {
-
-    "postinstall": "cd node_modules/ember-lodash && npm install",
-  },
 
   private
 
@@ -113,9 +101,8 @@ class ApplicationController < ActionController::Base
       end
     end
 end
-
-
-
+```
+```
 //controllers/sessions_controller.rb
 
 class SessionsController < Devise::SessionsController
@@ -137,10 +124,8 @@ class SessionsController < Devise::SessionsController
      end
    end
 end
-
-
-
-
+```
+```
 models/users.rb
 class User < ActiveRecord::Base
   before_save :ensure_authentication_token
@@ -176,43 +161,26 @@ class User < ActiveRecord::Base
     end
   end
 end
+```
 
-
+```
 db/seeds.rb
 User.create(email: 'admin@test.com', password: 'password')
+```
 
-
+##JSON API INITIALIZER
+```
 config/initializers/json_api.rb
 ActiveModel::Serializer.config.adapter = ActiveModel::Serializer::Adapter::JsonApi
-
-
-
-
-
-
-
-EMBER
-------------------
 ```
 
 
-FOR "ember-data": "2.3.3",
-add this to the environment.js
-var deployTarget = process.env.DEPLOY_TARGET || environment;
+##EMBER INTEGRATION
+-----------------
 
-
-  if (deployTarget === 'staging') {
-  ENV.build.environment = 'production';
-}
-
-if (deployTarget === 'production') {
-  ENV.build.environment = 'production';
-}
-
-
-ember install ember-cli-selectize
-
-
+###ENVIRONMENT JS FILE
+```
+// environment.js
 
 ENV.APP.host =  'http://localhost:3000';
 
@@ -241,16 +209,14 @@ ENV['ember-simple-auth'] = {
     routeAfterAuthentication: 'dashboard',
     routeIfAlreadyAuthenticated: 'dashboard'
   };
+```
 
+```
 // controllers/login.js
 import Ember from 'ember';
-
-
-
 export default Ember.Controller.extend(Ember.Evented,{
 
 session: Ember.inject.service('session'),
-
 
   isLoginButtonDisabled: Ember.computed('email', function() {
     return Ember.isEmpty(this.get('email'));
@@ -270,16 +236,23 @@ session: Ember.inject.service('session'),
     }
   }
 });
+```
 
 
+
+###DEVISE AND LOGIN ROUTE
+```
+  ember install ember-cli-simple-auth
+```
+```
 //routes/login.js
 import Ember from 'ember';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
 export default Ember.Route.extend(UnauthenticatedRouteMixin);
+```
 
-
-
+```
 //routes/application.js
 
 import Ember from 'ember';
@@ -287,9 +260,9 @@ import Ember from 'ember';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 export default Ember.Route.extend(ApplicationRouteMixin, {
   });
+```
 
-
-
+```
 app/authenticators/devise.js
 import ENV from '../config/environment';
 import DeviseAuthenticator from 'ember-simple-auth/authenticators/devise';
@@ -297,8 +270,8 @@ import DeviseAuthenticator from 'ember-simple-auth/authenticators/devise';
 export default DeviseAuthenticator.extend({
   serverTokenEndpoint: ENV.APP.host + '/users/sign_in'
 });
-
-
+```
+```
 app/authorizers/devise.js
 import DeviseAuthorizer from 'ember-simple-auth/authorizers/devise';
 
@@ -310,9 +283,56 @@ export default DeviseAuthorizer.extend({
     }
   }
 });
+```
 
-ember install ember-cli-notifications
 
+```
+app/routes/application.js
+import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
+
+export default Ember.Route.extend(ApplicationRouteMixin, {
+});
+```
+
+
+
+###Dashboard devise integration
+  
+```  
+app/routes/dashboard.js
+import Ember from 'ember';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+
+export default Ember.Route.extend(AuthenticatedRouteMixin,{
+
+session: Ember.inject.service('session'),
+
+  actions: {
+    logout() {
+
+      this.get('session').invalidate();
+      this.transitionTo('login');
+    }
+  }
+});
+```
+
+
+
+###A sample dashboard template
+```
+app/templates/dashboard.hbs
+  {{#link-to class="item"}}
+  <i class="logout icon" {{action "logout"}}></i>
+  Logout
+  {{/link-to}}
+```
+  
+
+
+###ADAPTER & SERIALIZER
+```
 app/config/adapters/application.js
 import DS from 'ember-data';
 import ENV from '../config/environment';
@@ -322,8 +342,8 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin,{
   host: ENV.APP.host,
   authorizer: 'authorizer:devise'
 });
-
-
+```
+```
 app/config/serializers/application.js
 
 import DS from 'ember-data';
@@ -349,46 +369,12 @@ export default DS.JSONAPISerializer.extend({
     }
   }
 });
+```
 
 
 
-app/templates/dashboard.hbs
-  {{#link-to class="item"}}
-  <i class="logout icon" {{action "logout"}}></i>
-  Logout
-  {{/link-to}}
-  
-  ember install ember-cli-simple-auth
-
-  
-  
-app/routes/dashboard.js
-import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-
-export default Ember.Route.extend(AuthenticatedRouteMixin,{
-
-session: Ember.inject.service('session'),
-
-  actions: {
-    logout() {
-
-      this.get('session').invalidate();
-      this.transitionTo('login');
-    }
-  }
-});
-
-app/routes/application.js
-import Ember from 'ember';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-
-export default Ember.Route.extend(ApplicationRouteMixin, {
-});
-
-
-
-// BEST PRACTICE FOR ROUTE HOOKS
+### BEST PRACTICE FOR ROUTE HOOKS
+```
 model: function() {
     return this.store.findAll('product');
   },
@@ -399,9 +385,21 @@ model: function() {
        }
 
 ```
-```
-# AOM IDE
-apm install jshint
 
+# ATOM IDE CONFIGURATION
+
+###Linter
+```
+apm install jshint
+```
+###AutoIndent Code
+
+
+```
+// put this code to keymap.cson
 'atom-text-editor':
   'cmd-alt-l': 'editor:auto-indent'
+```
+
+
+
