@@ -193,6 +193,7 @@ ActiveModel::Serializer.config.adapter = ActiveModel::Serializer::Adapter::JsonA
 
 EMBER
 ------------------
+```
 ENV.APP.host =  'http://localhost:3000';
 
     contentSecurityPolicy: {
@@ -377,6 +378,7 @@ model: function() {
        controller.set('suppliers', this.store.findAll('supplier'));
        }
 
+```
 ```
 # AOM IDE
 apm install jshint
