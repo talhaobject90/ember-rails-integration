@@ -76,7 +76,9 @@ rails generate devise:install
 rails generate devise user
 ```
 ####Add to migration file
+```
 t.string :authentication_token, null: false, default: ""
+```
 
 ```
 //config/routes.rb
@@ -168,10 +170,12 @@ db/seeds.rb
 User.create(email: 'admin@test.com', password: 'password')
 ```
 
-##JSON API INITIALIZER
+##JSON API INITIALIZER & Register MIME TYPE
 ```
 config/initializers/json_api.rb
+
 ActiveModel::Serializer.config.adapter = ActiveModel::Serializer::Adapter::JsonApi
+Mime::Type.register "application/json", :json, %w( text/x-json application/jsonrequest application/vnd.api+json )
 ```
 
 
