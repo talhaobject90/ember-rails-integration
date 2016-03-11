@@ -337,6 +337,9 @@ app/templates/dashboard.hbs
   Logout
   {{/link-to}}
   
+  ember install ember-cli-simple-auth
+
+  
   
 app/routes/dashboard.js
 import Ember from 'ember';
