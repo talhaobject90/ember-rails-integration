@@ -194,6 +194,11 @@ ActiveModel::Serializer.config.adapter = ActiveModel::Serializer::Adapter::JsonA
 EMBER
 ------------------
 ```
+
+ember install ember-cli-selectize
+
+
+
 ENV.APP.host =  'http://localhost:3000';
 
     contentSecurityPolicy: {
