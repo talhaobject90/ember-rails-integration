@@ -184,6 +184,11 @@ Mime::Type.register "application/json", :json, %w( text/x-json application/jsonr
 ```
 
 
+
+## RAILS DROP AND RE MIGRATE DB
+```
+rake db:drop db:create db:migrate
+```
 ##EMBER INTEGRATION
 -----------------
 
