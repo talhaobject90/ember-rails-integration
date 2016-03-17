@@ -18,6 +18,9 @@ heroku login
 
 heroku keys:add
 
+git remote add heroku git@heroku.com:project.git
+
+
 ```
 ### incase of heroku install error include this post-script
 ```
