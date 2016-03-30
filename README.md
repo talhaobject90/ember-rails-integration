@@ -419,4 +419,14 @@ apm install jshint
 ```
 
 
+### RAILS RECREATE DATABASE AND MIGRATE 
+```
+
+ heroku pg:reset DATABASE_URL
+ 
+ heroku run  rake db:migrate
+ 
+ heroku run rake db:seed
+
+```
 
