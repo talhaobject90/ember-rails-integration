@@ -232,7 +232,9 @@ ENV['ember-simple-auth'] = {
 
 ###DEVISE AND LOGIN ROUTE
 ```
-  ember install ember-cli-simple-auth
+  
+  ember install ember-simple-auth
+
 ```
 
 
