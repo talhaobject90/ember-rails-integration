@@ -212,7 +212,6 @@ ENV.APP.host =  'http://localhost:3000';
     },
 
 
-ember install ember-simple-auth
   ENV['simple-auth-devise'] = {
     tokenAttributeName: 'token',
     identificationAttributeName: 'email',
