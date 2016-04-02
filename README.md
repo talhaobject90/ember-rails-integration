@@ -228,6 +228,15 @@ ENV['ember-simple-auth'] = {
   };
 ```
 
+
+
+
+###DEVISE AND LOGIN ROUTE
+```
+  ember install ember-cli-simple-auth
+```
+
+
 ```
 // controllers/login.js
 import Ember from 'ember';
@@ -256,11 +265,6 @@ session: Ember.inject.service('session'),
 ```
 
 
-
-###DEVISE AND LOGIN ROUTE
-```
-  ember install ember-cli-simple-auth
-```
 ```
 //routes/login.js
 import Ember from 'ember';
