@@ -345,10 +345,9 @@ session: Ember.inject.service('session'),
 ```
 //app/templates/dashboard.hbs
 
-  {{#link-to class="item"}}
-  <i class="logout icon" {{action "logout"}}></i>
-  Logout
-  {{/link-to}}
+
+<i class="logout icon" {{action "logout"}}> Logout</i>
+
 ```
   
 
