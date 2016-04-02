@@ -238,6 +238,7 @@ ENV['ember-simple-auth'] = {
 
 ```
 // controllers/login.js
+
 import Ember from 'ember';
 export default Ember.Controller.extend(Ember.Evented,{
 
@@ -266,6 +267,7 @@ session: Ember.inject.service('session'),
 
 ```
 //routes/login.js
+
 import Ember from 'ember';
 import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 
@@ -283,7 +285,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 ```
 
 ```
-app/authenticators/devise.js
+//app/authenticators/devise.js
+
 import ENV from '../config/environment';
 import DeviseAuthenticator from 'ember-simple-auth/authenticators/devise';
 
@@ -292,7 +295,8 @@ export default DeviseAuthenticator.extend({
 });
 ```
 ```
-app/authorizers/devise.js
+//app/authorizers/devise.js
+
 import DeviseAuthorizer from 'ember-simple-auth/authorizers/devise';
 
 export default DeviseAuthorizer.extend({
@@ -306,21 +310,16 @@ export default DeviseAuthorizer.extend({
 ```
 
 
-```
-app/routes/application.js
-import Ember from 'ember';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend(ApplicationRouteMixin, {
-});
-```
+
 
 
 
 ###Dashboard devise integration
   
 ```  
-app/routes/dashboard.js
+//app/routes/dashboard.js
+
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
@@ -342,7 +341,8 @@ session: Ember.inject.service('session'),
 
 ###A sample dashboard template
 ```
-app/templates/dashboard.hbs
+//app/templates/dashboard.hbs
+
   {{#link-to class="item"}}
   <i class="logout icon" {{action "logout"}}></i>
   Logout
@@ -353,7 +353,8 @@ app/templates/dashboard.hbs
 
 ###ADAPTER & SERIALIZER
 ```
-app/config/adapters/application.js
+//app/config/adapters/application.js
+
 import DS from 'ember-data';
 import ENV from '../config/environment';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
@@ -364,7 +365,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin,{
 });
 ```
 ```
-app/config/serializers/application.js
+//app/config/serializers/application.js
 
 import DS from 'ember-data';
 export default DS.JSONAPISerializer.extend({
