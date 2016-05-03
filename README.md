@@ -229,6 +229,68 @@ ENV['ember-simple-auth'] = {
 
 
 
+### EMBER ROUTE MODEL HOOK AND SETUPCONTROLLER METHODS(WORKS MOSTLY FOR EMBER 2.4.*)
+
+```
+
+// TYPE 1: MODEL HOOK AND SETUP CONTROLLER
+model: function() {
+    return this.store.findAll('product' ,{reload: true});
+  },
+
+  setupController: function(controller ,model) {
+    controller.set('products',model);
+    controller.set('suppliers', this.store.findAll('supplier') ,{reload: true});
+  },
+  
+  
+  
+// TYPE 2  : USING RSVP HASH
+
+
+    model: function() {
+      return Ember.RSVP.hash({
+      product: this.modelFor('dashboard.inventory.product'),
+      products: this.store.findAll('product'),
+    });
+
+    },
+
+  setupController: function(controller ,model) {
+    controller.set('product',model.product );
+    controller.set('products', model.products);
+
+  }
+  
+// TYPE 3: USING PARAMS IN MODEL HOOK
+
+  model: function(params) {
+      return this.store.findRecord('product', params.id );
+  },
+  
+  
+// TYPE4 : FETCHING AND SETTING IN MODELHOOKS WITH FILTER
+model: function() {
+    // return this.store.findAll('project' ,{reload: true});
+    return Ember.RSVP.hash({
+     projects: this.store.findAll('project' ,{reload: true}).then(function(projects){
+          return {
+            runningProjects:  projects.filterBy('status', 'started'),
+            processingProjects:  projects.filterBy('status', 'created')
+        };
+     }),
+   });
+  },
+
+  setupController: function(controller ,model) {
+
+      controller.set('projects',model.projects);
+      controller.set('processingProjects',model.projects.processingProjects);
+      controller.set('runningProjects',model.projects.runningProjects);
+
+  }
+```
+
 
 ###DEVISE AND LOGIN ROUTE
 ```
