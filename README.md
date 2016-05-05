@@ -3,7 +3,45 @@
 
 ----------
 
+
+
+
+
+
 # ember-rails-integration
+
+##GIT BASIC COMMANDS
+
+git clone ------ssh url-----
+
+
+cd into directory
+
+FOR RAILS 
+
+bundle install
+
+NB: sometimes you have to issue "bundle exec rake db:create" instead of just " rake db:create"
+
+rake db:create 
+rake db:migrate
+rake db:seed
+rails server
+
+FOR EMBER 
+
+npm install
+bower install
+ember server
+
+
+
+After doing any changes.
+1) To check you changed files list  - git status
+2) To add newly created files to git  - git add .
+3) To add commit changes  - git commit -m "comment"
+4) To push  - git push origin master
+
 
 
 
