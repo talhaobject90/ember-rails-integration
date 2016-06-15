@@ -110,7 +110,8 @@ sudo npm install -g bower
 
 ###INSTALL NPM PACKAGE DIRECTLY FROM GITHUB
 ```
-npm install git+https://git@github.com/talhaobject90/ember-cli-selectize.git
+npm install git+https://git@github.com/talhaobject90/ember-cli-selectize.git --save-dev
+
 ```
  
 
