@@ -104,7 +104,13 @@ sudo apt-get install libpq-dev
 ```
 curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 sudo apt-get install -y nodejs
-npm install -g ember-cli
+sudo npm install -g ember-cli
+sudo npm install -g bower
+```
+
+###INSTALL NPM PACKAGE DIRECTLY FROM GITHUB
+```
+npm install git+https://git@github.com/talhaobject90/ember-cli-selectize.git
 ```
  
 
