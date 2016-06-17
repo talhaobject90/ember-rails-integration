@@ -58,6 +58,14 @@ heroku keys:add
 
 git remote add heroku git@heroku.com:project.git
 
+//download db 
+
+ heroku pg:backups capture
+ curl -o latest.dump `heroku pg:backups public-url`
+ 
+ php pg2mysql_cli.php /tmp/newpgdump.sql /tmp/newpgdump_mysql.sql 
+ref  http://www.pukkapanel.com/guide29/convert-postgresql-dump-to-mysql
+
 
 ```
 ### incase of heroku install error include this post-script
