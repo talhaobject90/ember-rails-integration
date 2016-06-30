@@ -550,3 +550,158 @@ apm install jshint
 
 ```
 
+
+### EMBER-RAILS CLOUDINARY FILE UPLOAD 
+
+
+## EMBER:
+```
+npm install --save-dev ember-cli-uploader
+ember generate ember-cli-uploader
+```
+
+Add a field  (like "url") in database and add to models
+
+```
+// models file
+url: attr('string')
+```
+
+```
+ember g component file-upload
+```
+```
+//app/components/file-upload.js
+
+
+import EmberUploader from 'ember-uploader';
+
+export default EmberUploader.FileField.extend({
+  url: '',
+  filesDidChange: function(files) {
+
+         this.get('on-upload')({
+              files: files,
+
+       employee : this.get('employee')
+       });
+  }
+});
+```
+
+```
+//controller file
+
+
+import EmberUploader from 'ember-uploader';
+import ENV from '../../../config/environment';
+session: Ember.inject.service('session'),
+imageUploading: false,
+
+actions:{
+  uploadProfilePic :function(params){
+    var controller = this;
+
+
+    var authenticated = controller.get('session.data.authenticated');
+    let files = params.files,
+    employee = params.employee;
+
+
+    var uploader = EmberUploader.Uploader.extend({
+      url: ENV.APP.host + '/employees/'+employee.id,
+      type: 'PATCH',
+      paramNamespace: 'employee',
+      paramName: 'url',
+      ajaxSettings: function() {
+        var settings = this._super.apply(this, arguments);
+        settings.headers = {
+          'Authorization':'Token token="'+ authenticated.token +'", email="'+ authenticated.email +'"'
+        };
+        return settings;
+      }
+    }).create();
+
+
+    uploader.on('progress', function() {
+      controller.set('imageUploading',true);
+    });
+
+    uploader.on('didUpload', function() {
+      controller.notifications.addNotification({
+        message:  'File uploaded' ,
+        type: 'success',
+        autoClear: true
+      });
+      controller.set('imageUploading',false);
+    });
+
+    uploader.on('didError', function(jqXHR, textStatus, errorThrown) {
+      controller.notifications.addNotification({
+        message: 'Sorry something went wrong' ,
+        type: 'success',
+        autoClear: true
+      });
+      console.log(jqXHR + textStatus + errorThrown);
+      controller.set('imageUploading',false);
+    });
+
+
+    if (!Ember.isEmpty(files)) {
+      uploader.upload(files[0]).then(function(){
+        controller.get('employee').reload();
+      }
+    );
+  }
+
+
+},
+}
+```
+
+
+## RAILS:
+
+```
+
+// gem file
+
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'cloudinary'
+gem "mini_magick"
+```
+
+
+```
+// app/uploaders/employee_uploader.rb
+
+# encoding: utf-8
+  class EmployeeUploader < CarrierWave::Uploader::Base
+
+  include Cloudinary::CarrierWave
+  include CarrierWave::MiniMagick
+
+  # def store_dir
+  #   'public/uploads'
+  # end
+
+  version :thumb do
+    process resize_to_fit: [200, 300]
+  end
+
+end
+
+```
+
+
+```
+//  app/models/employee.rb
+
+mount_uploader :url, EmployeeUploader
+attr_accessor :is_thumbnable
+```
+
+
+
+
+
