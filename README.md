@@ -551,10 +551,10 @@ apm install jshint
 ```
 
 
-### EMBER-RAILS CLOUDINARY FILE UPLOAD 
+## EMBER-RAILS CLOUDINARY FILE UPLOAD 
 
 
-## EMBER:
+### EMBER:
 ```
 npm install --save-dev ember-cli-uploader
 ember generate ember-cli-uploader
@@ -660,7 +660,7 @@ actions:{
 ```
 
 
-## RAILS:
+### RAILS:
 
 ```
 
