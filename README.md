@@ -702,6 +702,17 @@ attr_accessor :is_thumbnable
 ```
 
 
-
+## PHPMYADMIN CONFIGURATION FILE SETTINGS
+```
+/* Authentication type */
+$cfg['Servers'][$i]['auth_type'] = 'config';
+/* Server parameters */
+$cfg['Servers'][$i]['host'] = 'localhost';
+$cfg['Servers'][$i]['connect_type'] = 'tcp';
+$cfg['Servers'][$i]['compress'] = false;
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'password';
+$cfg['Servers'][$i]['AllowNoPassword'] = true;
+```
 
 
