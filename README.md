@@ -1,5 +1,5 @@
 
-> These are the results of my 4 months research . I am giving it away.
+
 
 ----------
 
