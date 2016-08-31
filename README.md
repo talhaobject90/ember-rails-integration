@@ -715,4 +715,9 @@ $cfg['Servers'][$i]['password'] = 'password';
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 ```
 
+## UNBIND RAILS PORT 
+
+```
+kill -9 $(lsof -i tcp:3000 -t)
+```
 
