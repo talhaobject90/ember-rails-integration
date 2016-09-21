@@ -721,3 +721,10 @@ $cfg['Servers'][$i]['AllowNoPassword'] = true;
 kill -9 $(lsof -i tcp:3000 -t)
 ```
 
+## MANY TO MANY RELATIONSHIP 
+ To be concluded
+```
+
+
+```
+
