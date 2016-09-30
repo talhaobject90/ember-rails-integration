@@ -507,6 +507,11 @@ session: Ember.inject.service('session'),
 
 ```
   
+### To Make DASHBOARD DEFAULT ROUTE
+
+```
+this.route('dashboard' ,{path: '/'});
+```
 
 
 ###ADAPTER & SERIALIZER
