@@ -131,6 +131,46 @@ npm install git+https://git@github.com/talhaobject90/ember-cli-selectize.git --s
 ```
 rails _5.0.0.beta3_ new bookstore-api --api
 ```
+
+### Database.yml
+   
+   
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: hrm-backend_development
+  username: root
+  password: password
+  host: 127.0.0.1
+  pool: 5
+  timeout: 5000
+
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: hrm-backend_test
+  username: root
+  password: password
+  host: 127.0.0.1
+
+
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: hrm-backend_production
+  username: hrm-backend
+  password: <%= ENV['HRM-BACKEND_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+     
+
 ### Devise
 ```
 rails generate devise:install
