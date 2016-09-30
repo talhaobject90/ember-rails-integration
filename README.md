@@ -133,7 +133,7 @@ rails _5.0.0.beta3_ new bookstore-api --api
 ```
 
 ### Database.yml
-   
+```
    
 default: &default
   adapter: postgresql
@@ -169,7 +169,9 @@ production:
   username: hrm-backend
   password: <%= ENV['HRM-BACKEND_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
-     
+ ```   
+    
+    
 
 ### Devise
 ```
