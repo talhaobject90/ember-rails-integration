@@ -179,14 +179,27 @@ rails generate devise:install
 rails generate devise user
 ```
 ####Add to migration file
+
 ```
 t.string :authentication_token, null: false, default: ""
 ```
 
 ```
-//config/routes.rb
-devise_for :users, controllers: { sessions: 'sessions' }
+//config/application.rb
+ config.api_only = true
+ config.middleware.use ActionDispatch::Flash
 ```
+
+```
+//config/initializers/devise.rb
+    config.navigational_formats = [:json]
+```
+
+```
+//config/routes.rb
+devise_for :users, defaults: { format: :json } ,controllers: { sessions: 'sessions' }
+```
+
 ```
 //controllers/application_controller.rb
 class ApplicationController < ActionController::Base
