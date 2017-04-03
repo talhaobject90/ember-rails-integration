@@ -45,7 +45,11 @@ After doing any changes.
 
 
 
-##INSTALL HEROKU TOOLBELT
+##INSTALL 
+
+
+
+TOOLBELT
 ```
 
 wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
@@ -58,13 +62,7 @@ heroku keys:add
 
 git remote add heroku git@heroku.com:project.git
 
-//download db 
 
- heroku pg:backups capture
- curl -o latest.dump `heroku pg:backups public-url`
- 
- php pg2mysql_cli.php /tmp/newpgdump.sql /tmp/newpgdump_mysql.sql 
-ref  http://www.pukkapanel.com/guide29/convert-postgresql-dump-to-mysql
 
 
 ```
@@ -603,6 +601,14 @@ apm install jshint
 
 ### RAILS RECREATE DATABASE AND MIGRATE 
 ```
+
+//download db 
+
+ heroku pg:backups capture
+ heroku pg:backups:download
+ heroku pg:backups:restore 'http://trader.trothsoftwares.com/latest.dump' DATABASE_URL -a trader-back
+ 
+ 
 
  heroku pg:reset DATABASE_URL
  
