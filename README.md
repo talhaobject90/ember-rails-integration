@@ -110,8 +110,8 @@ sudo apt-get install libpq-dev
 ```
 curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 sudo apt-get install -y nodejs
-sudo npm install -g ember-cli
-sudo npm install -g bower
+ npm install -g ember-cli
+ npm install -g bower
 ```
 
 ###INSTALL NPM PACKAGE DIRECTLY FROM GITHUB
