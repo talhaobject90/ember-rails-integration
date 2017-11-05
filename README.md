@@ -597,6 +597,11 @@ apm install jshint
 'atom-text-editor':
   'cmd-alt-l': 'editor:auto-indent'
 ```
+```
+'body':
+  'ctrl-tab': 'pane:show-next-item'
+  'ctrl-shift-tab': 'pane:show-previous-item'
+  ```
 
 
 ### RAILS RECREATE DATABASE AND MIGRATE 
